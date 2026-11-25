@@ -1,14 +1,14 @@
 # TVmaze API
 
 ## Purpose
-A small app for the public TVmaze API. In a Streamlit web interface (`app.py`) you search TV shows live on TVmaze, save the ones you like to your own list in Supabase, filter and chart that list, and open a detail view that fetches the number of seasons and episodes live from TVmaze. Command-line scripts (`tvmaze.py`, `load_to_supabase.py`) do the same fetching and loading in bulk.
+A small app for the public TVmaze API. In a dark-themed Streamlit web interface, "Bingelist" (`app.py`), you browse rows of popular shows, search TV shows live on TVmaze, save the ones you like to your own list in Supabase, filter that list, and open a detail view that fetches the number of seasons and episodes live from TVmaze. Command-line scripts (`tvmaze.py`, `load_to_supabase.py`) do the same fetching and loading in bulk.
 
 ## Data collection
 `tvmaze.py` calls https://api.tvmaze.com with `requests`:
 - `/search/shows?q=<term>` when `--search` is given,
 - `/shows?page=N` (the paged show index) otherwise.
 
-`app.py` uses the same functions for its live search, plus `/shows/<id>/episodes` for the season and episode count in the detail view. API results are cached in the app (10 minutes for searches, 1 hour for episode counts), so repeated searches don't call TVmaze again.
+`app.py` uses the same functions for its live search, the first two pages of `/shows` (about 500 shows, with TVmaze's popularity `weight`) for the rows on its home page, plus `/shows/<id>/episodes` for the season and episode count in the detail view. API results are cached in the app (10 minutes for searches, 1 hour for the home page rows and episode counts), so repeated searches don't call TVmaze again.
 
 No API key is needed. TVmaze allows about 20 requests per 10 seconds per IP, so the script waits `--delay` seconds (default 0.5) after each call and retries with a growing pause if it receives HTTP 429.
 
@@ -22,11 +22,12 @@ In the app, the `shows` table is your personal list: Save adds a show, Remove de
 ```bash
 streamlit run app.py
 ```
-Opens at http://localhost:8501.
-- **Search:** type a show name. Results come live from TVmaze with poster, year, rating, genres and network. Press **Save** to add a show to your list.
-- **My shows:** your saved shows as a table, with sidebar filters (genre, minimum rating, status), summary numbers and a chart of shows per genre. The detail view shows poster, summary, network and years, plus the live season and episode count. **Remove** deletes the show from your list.
+Opens at http://localhost:8501. Start it from this folder, so the dark theme in `.streamlit/config.toml` is used.
+- **Home:** a featured show with a **＋ My list** button, then rows of posters: your list, trending on TVmaze, top rated, and one row per genre (18 shows each, without repeats between genre rows). Click a poster to open the show on TVmaze.
+- **Search:** type a title. Up to 10 results come live from TVmaze as a poster grid; **＋ My list** saves a show.
+- **My list:** filters for genre, minimum rating and status; the number of shows, average rating and how many are still running; a poster grid; and a detail view with the live season and episode count. **Remove from my list** deletes the show. A chart of shows per genre is in an expander.
 
-Without Supabase (no `.env`, or the project is paused), the app runs as a read-only demo: search still works, the list shows `shows_sample.json`, and Save/Remove are disabled.
+Without Supabase (no `.env`, or the project is paused), the app runs as a read-only demo: home and search still work, "My list" shows `shows_sample.json`, and saving/removing are disabled.
 
 **Command line**
 ```bash
@@ -56,7 +57,9 @@ cp .env.example .env   # needed for saving in the app and for load_to_supabase.p
 Tested with Python 3.13. Run `schema.sql` in the Supabase SQL Editor (safe to re-run) before `load_to_supabase.py`. `tvmaze.py`, and the app in demo mode, work without any configuration.
 
 ## Screenshot
-TODO: add a screenshot of the app (Search and My shows).
+The home page of the app, with the featured show and the first poster row (your list):
+
+![Bingelist app home page](screenshot.png)
 
 ## Learning
 **API instead of scraping.** Compared with the Books project, the TVmaze API returns structured JSON, so there was no HTML to parse. But the data is nested (network → country, rating → average, image → original) and summaries contain HTML tags, so I still needed a step (`parse_show`) that flattens each show into one clean record matching my table. I also learned to respect the API's rate limit (about 20 requests per 10 seconds): the script waits between calls and backs off when it gets HTTP 429, and the app caches results so repeating a search doesn't call TVmaze again.
@@ -65,7 +68,7 @@ TODO: add a screenshot of the app (Search and My shows).
 
 **Challenge: a table that wasn't there.** After the Supabase project was restored, the loader kept failing with "Could not find the table 'public.shows'". I checked which tables the API could see, and only `books` was listed. In the end the cause was simple: I had pasted `schema.sql` into the SQL Editor, but the query had never been run. The results panel still said "Click Run to execute your query". When I ran it, Supabase warned about "destructive operations". That came from the `drop policy if exists` line, which only resets the read-only access rule so the script can be run more than once; it doesn't delete any data. I learned to check the result of every step instead of assuming it worked, and to understand what a warning refers to before confirming it.
 
-**Challenge: Streamlit reruns everything.** Streamlit runs the whole script again on every click. My first version used tabs, and every time a filter changed, the page jumped back to the Search tab. The fix was to replace the tabs with a radio switch whose value is stored in the session state, so the app remembers which view is open, and to show the filters only on "My shows". A second bug came from pandas: a missing rating becomes `NaN`, which counts as "true" in Python, so the app showed "nan" instead of "–" until I converted missing values back to `None`.
+**Challenge: Streamlit reruns everything.** Streamlit runs the whole script again on every click. My first version used tabs, and every time a filter changed, the page jumped back to the Search tab. The fix was to replace the tabs with a radio switch whose value is stored in the session state, so the app remembers which view is open, and to show the filters only on the "My list" page. A second bug came from pandas: a missing rating becomes `NaN`, which counts as "true" in Python, so the app showed "nan" instead of "–" until I converted missing values back to `None`.
 
 **A deliberate decision about scope.** I first wanted to add AI features to step into a show's world: generating merch (card decks, shirts, puzzles), videos with me or friends in the series, or a video game. I decided against it. Posters, logos and characters are copyrighted, and putting real people (friends or actors) into AI videos raises consent and likeness problems. It would also have been far more work than the deadline allowed, and graders would have needed paid API keys to try it. I also considered a "swipe to like or dislike" app and an AI text adventure, but they didn't interest me enough. So I chose a simple, useful interface: search, save your own list, and see live episode counts. The assignment says simple solutions can earn full marks, and this one I can fully explain.
 

@@ -29,7 +29,13 @@ No dependencies to install. Requires Chrome 111+. `vendor/three.module.min.js` (
 | Gmail content script | Detecting the "Message sent" toast to tick off "Send email" to-dos (no email content is read) |
 
 ## Screenshot
-TODO: add `screenshot.png` of the new tab page.
+The new tab page with clock, greeting, focus timer, blocklist and to-do list:
+
+![Reef new tab page](screenshot-newtab.png)
+
+The "Shadow" page with the digital twin and the guesses a website could make about you:
+
+![Reef Shadow page with the digital twin](screenshot-shadow.png)
 
 ## Learning
 **Writing a spec before building.** I started with a product document (`PM-doc.md`) that lists every feature with acceptance criteria, for example "Sites cannot be removed from the list while a focus session is running". Building against that list made it clear when a feature was done, and it made working with an AI assistant much more predictable: I could point at a criterion instead of describing what I wanted each time. The project then grew in versions (V1 focus tools, V2 "Shadow", up to V2.5 "Protect") and the document grew with it, so it also became the history of my decisions.

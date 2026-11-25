@@ -1,7 +1,7 @@
 # Books to Scrape
 
 ## Purpose
-Scrapes book data from https://books.toscrape.com, stores it in a Supabase (Postgres) table, and presents it in a small Streamlit web app (`app.py`) with filters, summary numbers, a chart and a detail view.
+Scrapes book data from https://books.toscrape.com, stores it in a Supabase (Postgres) table, and presents it in a dark-themed Streamlit web app, "Bookshelf" (`app.py`): a featured book and rows of covers on the home page, plus a browse page with filters, a cover grid, a detail view and the full table.
 
 ## Data collection
 `scraper.py` walks the catalogue list pages with `requests`, opens each book's detail page and parses it with BeautifulSoup (title, category, prices, stock, rating, reviews, description, image, URL). It waits `--delay` seconds (default 0.5) between pages to be polite to the site.
@@ -20,9 +20,11 @@ Browse it in the web interface:
 ```bash
 streamlit run app.py
 ```
-The app opens at http://localhost:8501. The sidebar filters by title, category, minimum rating, price range and stock. The main page shows the number of matching books, average price and rating, a sortable table with links to each book, a chart of books per category, and a detail view with cover image and description.
+The app opens at http://localhost:8501. Start it from this folder, so the dark theme in `.streamlit/config.toml` is used.
+- **Home:** a featured five-star book, then rows of covers: five-star books, good value (4+ stars under £25) and one row per category. Click a cover to open the book on books.toscrape.com.
+- **Browse:** filters for title, category, minimum rating, price range and stock; the number of matching books with average price and rating; a grid of covers; a detail view with cover, description, UPC, prices and reviews; and, in an expander, the full table and a chart of books per category.
 
-The app reads the `books` table from Supabase when `.env` is set. If Supabase is not configured or not reachable, it falls back to the local `books100.json` (or the committed `books.json` sample) and says so at the top of the page, so the interface can be tried without a database.
+The app reads the `books` table from Supabase when `.env` is set. If Supabase is not configured or not reachable, it falls back to the local `books100.json` (or the committed `books.json` sample) and names the data source at the bottom of the page, so the interface can be tried without a database.
 
 ## Setup
 Tested with Python 3.13.
@@ -34,7 +36,9 @@ cp .env.example .env   # fill in SUPABASE_URL, SUPABASE_SERVICE_KEY and (optiona
 Run `schema.sql` in the Supabase SQL Editor (safe to re-run), then the commands above. `streamlit run app.py` also works without `.env`: it then shows the local JSON data.
 
 ## Screenshot
-TODO: add a screenshot of the terminal run and/or the Supabase table.
+The home page of the app, with a featured book and the first row of covers:
+
+![Bookshelf app home page](screenshot.png)
 
 ## Learning
 **Scraping in two steps.** The list pages of books.toscrape.com only show title, price and rating, so the scraper first walks the list pages and then opens each book's detail page for the UPC, stock, category and description. I learned to read the HTML structure (table rows, breadcrumb, CSS classes such as `star-rating Three`) and turn it into clean values with BeautifulSoup and small regular expressions, for example converting "£51.77" into a number. I also added a delay between requests to be polite to the website.

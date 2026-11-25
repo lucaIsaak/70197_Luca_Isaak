@@ -23,24 +23,23 @@ Working checklist against the course's submission guidelines (`individual-submis
 | 15 | README: Setup (installation, dependencies, configuration, run) | done | `requirements.txt` and `.env.example` in both Python projects |
 | 16 | README: Learning (what you learned, a challenge, how you approached it) | done | All three. Drafted with Claude Code from full context (allowed by the professor); to be reviewed by the author. |
 | 17 | README: Limitations and assistance (incomplete features, AI tools, tutorials, external code) | done | All three |
-| 18 | Screenshot or short demonstration per project | **open** | `TODO` line in each README. |
+| 18 | Screenshot or short demonstration per project | done | Extension: new tab page and Shadow page. Books and TVmaze: home page of each app. |
 | 19 | "Not applicable" with a reason for topics that don't apply | done | No topic needed it. |
 | 20 | Run the audit prompt per project, review, fix, repeat | done | Run 1 → fixes → run 2 → run 3 (whole repo, full Git history). |
 | 21 | Sanitized `AUDIT.md` in each project | done | Findings, decisions, fixes, re-audits, limitations; no secrets. |
 | 22 | No secrets or private information; placeholder configuration | done | Confirmed in run 3, including all past commits. |
 | 23 | Organized files and appropriate exclusions (`.gitignore`) | done | Root and per-project `.gitignore` |
-| 24 | Git usage | partial | 9 commits, all on branch `submission-structure`. There is no local `main` yet, while GitHub's default branch is `main`. |
+| 24 | Git usage | partial | Commits on branch `submission-structure`. There is no local `main` yet, while GitHub's default branch is `main`. |
 
 ## Before submitting
-1. Add a screenshot to each project README (#18).
-2. Push the work as `main`, so the repo doesn't open on an empty default branch:
+1. Push the work as `main`, so the repo doesn't open on an empty default branch:
    ```bash
    git branch -m submission-structure main
    git push -u origin main
    ```
-3. Open the repo while logged out of GitHub and check that all three folders and READMEs show (#2).
-4. Create the audit evidence PDF and send it with the repo link by Dec 19th (#3).
-5. Shortly before grading, open the Supabase dashboard so the free project isn't paused.
+2. Open the repo while logged out of GitHub and check that all three folders and READMEs show (#2).
+3. Create the audit evidence PDF and send it with the repo link by Dec 19th (#3).
+4. Shortly before grading, open the Supabase dashboard so the free project isn't paused.
 
 ## Decisions and assumptions
 - Project 3 is the TVmaze API project (TV shows). The guidelines don't mention a movie project.

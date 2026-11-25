@@ -15,7 +15,7 @@ Source: `individual-submission.pdf` (Submission Guidelines, 3 pages). Checked on
 | 7 | Project 2: Books to Scrape: collect data | done | Scraper test run (2 books) OK. |
 | 8 | Project 2: store in a database | done | Supabase restored; `load_to_supabase.py --test` passes (write, read back, delete). The `books` table holds 100 rows, and `app.py` reads them from Supabase. |
 | 9 | Project 2: present through an interface of your choice | done | Streamlit app `books_to_scrape/app.py` (filters, metrics, table, chart, detail view). Tested in the browser with local JSON. Its Supabase-read path fell back correctly when Supabase was unreachable, but a successful Supabase read was not tested. |
-| 10 | Project 3: TVmaze API solution that connects to and uses the API | done | `tvmaze.py` tested live. Supabase: `--test` passes, `--file shows_sample.json` stored 5 shows, and `--top 5` lists them by rating. |
+| 10 | Project 3: TVmaze API solution that connects to and uses the API | done | CLI (`tvmaze.py`, `load_to_supabase.py`) verified against Supabase. Streamlit app `tvmaze_api/app.py`: live search, save/remove in Supabase, filters, chart, detail view with live season/episode count. Tested in the browser and in demo mode without Supabase. |
 | 11 | README per project: Purpose | done | All three. |
 | 12 | README: Data collection | done | All three. |
 | 13 | README: Data persistence | done | All three. |

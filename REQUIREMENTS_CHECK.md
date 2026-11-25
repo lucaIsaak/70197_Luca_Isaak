@@ -14,12 +14,12 @@ Source: `individual-submission.pdf` (Submission Guidelines, 3 pages). Checked on
 | 6 | Project 1: Momentum Dash replica (browser extension) | done | Copied from `chrome_extension/` ("Reef"). Manifest valid, JS syntax checks pass. Not loaded in Chrome during this run. |
 | 7 | Project 2: Books to Scrape: collect data | done | Scraper test run (2 books) OK. |
 | 8 | Project 2: store in a database | partial | Code exists (Supabase), but the Supabase host in your `.env` does not resolve (project likely paused or deleted), so write/read was not verified. |
-| 9 | Project 2: present through an interface of your choice | **missing** | Only CLI scripts that load data; there is no viewing interface. See open questions. |
+| 9 | Project 2: present through an interface of your choice | done | Streamlit app `books_to_scrape/app.py` (filters, metrics, table, chart, detail view). Tested in the browser with local JSON. Its Supabase-read path fell back correctly when Supabase was unreachable, but a successful Supabase read was not tested. |
 | 10 | Project 3: TVmaze API solution that connects to and uses the API | done | `tvmaze.py` tested live (search + index). Supabase loader + `--top` listing written but not verified (same DB issue; `shows` table must also be created from `schema.sql`). |
 | 11 | README per project: Purpose | done | All three. |
 | 12 | README: Data collection | done | All three. |
 | 13 | README: Data persistence | done | All three. |
-| 14 | README: User interaction | done / partial | Books: interface TODO (see #9). |
+| 14 | README: User interaction | done | |
 | 15 | README: Setup (install, deps, config, run) | done | `requirements.txt` + `.env.example` added for both Python projects. |
 | 16 | README: Learning (what you learned, a challenge, how you approached it) | **missing** | Left as `TODO (author)`: this must be your own reflection (graded 10%). |
 | 17 | README: Limitations and assistance (AI tools, tutorials, external code) | partial | TVmaze notes Claude Code use and gaps; others are TODO. |
@@ -36,12 +36,15 @@ Source: `individual-submission.pdf` (Submission Guidelines, 3 pages). Checked on
 - Copied `chrome_extension/` → `momentum_dash_replica/` and `bookscrape_supabase/` → `books_to_scrape/` with `rsync`, excluding nested `.git`, `.claude/`, `.env`, `__pycache__`, `.DS_Store`. Originals untouched.
 - Path fix: `load_to_supabase.py` now reads `.env` from the script's folder instead of the current working directory. The extension uses only relative paths, so nothing needed changing.
 - Built `tvmaze_api/` in the same style as the book scraper (requests, argparse, JSON output, Supabase loader with `--test`/`--file`, `schema.sql`, RLS read-only policy). Added `--top N` as a simple way to look at stored data. Rate limiting: 0.5 s between calls (TVmaze allows ~20 calls / 10 s) and backoff on HTTP 429.
+- Added a Streamlit interface `books_to_scrape/app.py` (second commit) with a JSON fallback when Supabase is unavailable.
 - Wrote root README, three project READMEs, AUDIT skeletons, root and per-project `.gitignore`, `requirements.txt`.
 
 ## Test runs
 - `books_to_scrape/scraper.py --limit 2` → OK (2 books).
 - `tvmaze_api/tvmaze.py --search office --limit 5` and `--limit 3` (index) → OK. Output kept as `tvmaze_api/shows_sample.json`.
 - `load_to_supabase.py --test` (both projects, using the credentials in `bookscrape_supabase/.env`) → **failed**: `httpx.ConnectError: nodename nor servname provided`. The Supabase hostname does not resolve; internet otherwise works. No data was written anywhere.
+
+- `streamlit run books_to_scrape/app.py` → page loads, 100 books from `books100.json`, title filter works. With the real (unreachable) Supabase credentials it showed the fallback notice instead of crashing.
 
 ## Assumptions
 1. "Movie part" = project 3, **TVmaze API** (the PDF mentions no movie project; TVmaze is TV shows).
@@ -55,7 +58,7 @@ Source: `individual-submission.pdf` (Submission Guidelines, 3 pages). Checked on
 
 ## Open questions for you
 1. **Supabase:** is the project paused or deleted? Restore it (or create a new one), update `.env` in both project folders, run `schema.sql` (books + shows), then `python load_to_supabase.py --test`.
-2. **Books interface (#9):** which interface do you want? Simple options: a Streamlit page reading the `books` table, a small static HTML page using the anon key (read-only RLS is already set up), or a CLI query command like TVmaze's `--top`. I didn't build one because it was outside the scope you gave me.
+2. **Books interface (#9):** built as a Streamlit app (follow-up request). It uses the service-role key from `.env` to read, like the loader. A read-only anon key would be cleaner for a viewer, so that's worth considering once Supabase is back. A screenshot of the app would also cover requirement #18 for this project.
 3. Do you want the original two GitHub repos (`lucaIsaak/chrome_extension`, `lucaIsaak/bookscrape_supabase`) linked from the root README too, to show their earlier commit history?
 4. Are the folder names fine, or does your course prefer something like `01_…`, `02_…`?
 5. `momentum_dash_replica/PM-doc.md` and `PRIVACY.md` were copied as-is. Please check that they contain nothing private before the repo goes public.

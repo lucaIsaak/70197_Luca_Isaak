@@ -1,0 +1,106 @@
+[
+  {
+    "id": 526,
+    "name": "The Office",
+    "type": "Scripted",
+    "language": "English",
+    "genres": [
+      "Comedy"
+    ],
+    "status": "Ended",
+    "premiered": "2005-03-24",
+    "ended": "2013-05-16",
+    "runtime": 30,
+    "rating": 8.5,
+    "network": "NBC",
+    "country": "United States",
+    "official_site": "http://www.nbc.com/the-office",
+    "summary": "Steve Carell stars in The Office, a fresh and funny mockumentary-style glimpse into the daily interactions of the eccentric workers at the Dunder Mifflin paper supply company. Based on the smash-hit British series of the same name and adapted for American Television by Greg Daniels, this fast-paced comedy parodies contemporary American water-cooler culture. Earnest but clueless regional manager Michael Scott believes himself to be an exceptional boss and mentor, but actually receives more eye-rolls than respect from his oddball staff.",
+    "image_url": "https://static.tvmaze.com/uploads/images/original_untouched/481/1204342.jpg",
+    "tvmaze_url": "https://www.tvmaze.com/shows/526/the-office"
+  },
+  {
+    "id": 1292,
+    "name": "The Office",
+    "type": "Scripted",
+    "language": "English",
+    "genres": [
+      "Comedy"
+    ],
+    "status": "Ended",
+    "premiered": "2001-07-09",
+    "ended": "2003-12-27",
+    "runtime": 30,
+    "rating": 7.9,
+    "network": "BBC Two",
+    "country": "United Kingdom",
+    "official_site": "http://www.bbc.co.uk/programmes/b00jd68z",
+    "summary": "A mockumentary about life in a mid-sized suboffice paper merchants in a bleak British industrial town, where manager David Brent thinks he's the coolest, funniest, and most popular boss ever. He isn't. That doesn't stop him from embarrassing himself in front of the cameras on a regular basis, whether from his political sermonizing, his stand-up 'comedy', or his incredibly unique dancing. Meanwhile, long-suffering Tim longs after Dawn the engaged receptionist and keeps himself sane by playing childish practical jokes on his insufferable, army-obsessed deskmate Gareth. Will the Slough office be closed? Will the BBC give David a game show? Will Tim and Dawn end up with each other? And more importantly, will Gareth realize what a hopeless prat he is?",
+    "image_url": "https://static.tvmaze.com/uploads/images/original_untouched/93/234802.jpg",
+    "tvmaze_url": "https://www.tvmaze.com/shows/1292/the-office"
+  },
+  {
+    "id": 69044,
+    "name": "The Office",
+    "type": "Scripted",
+    "language": "English",
+    "genres": [
+      "Comedy"
+    ],
+    "status": "Ended",
+    "premiered": "2024-10-18",
+    "ended": "2024-10-18",
+    "runtime": 23,
+    "rating": 4.9,
+    "network": "Prime Video",
+    "country": null,
+    "official_site": "https://www.primevideo.com/detail/0RVW3OR1Q8EFQFALYVLLNJ422E/",
+    "summary": "In The Office Australia, Hannah Howard is the managing director of packaging company Flinley Craddick.When she gets news from Head Office that they will be shutting down her branch and making everyone work from home, she goes into survival mode, making promises she can't keep in order to keep her \"work family\" together. The staff of Flinley Craddick indulge her and must endure Hannah's outlandish plots as they work toward the impossible targets that have been set for them.",
+    "image_url": "https://static.tvmaze.com/uploads/images/original_untouched/539/1349440.jpg",
+    "tvmaze_url": "https://www.tvmaze.com/shows/69044/the-office"
+  },
+  {
+    "id": 25637,
+    "name": "Radiant Office",
+    "type": "Scripted",
+    "language": "Korean",
+    "genres": [
+      "Drama",
+      "Comedy",
+      "Romance"
+    ],
+    "status": "Ended",
+    "premiered": "2017-03-15",
+    "ended": "2017-05-04",
+    "runtime": 65,
+    "rating": 6.7,
+    "network": "MBC",
+    "country": "Korea, Republic of",
+    "official_site": "http://www.imbc.com/broad/tv/drama/joffice/index.html",
+    "summary": "Eun Ho Won faces repeat rejections in her job search until despair drives her to attempt suicide. At the hospital, she learns she might be terminally-ill, but then at the same time, she also finally succeeds in getting hired. Thinking she has nothing to lose, she tackles her job and life with new perspectives. Seo Woo Jin is her superior at work and considers her a pain in the neck. They become a bickering pair.",
+    "image_url": "https://static.tvmaze.com/uploads/images/original_untouched/101/254702.jpg",
+    "tvmaze_url": "https://www.tvmaze.com/shows/25637/radiant-office"
+  },
+  {
+    "id": 44432,
+    "name": "Office Watch",
+    "type": "Scripted",
+    "language": "Korean",
+    "genres": [
+      "Drama",
+      "Comedy",
+      "Romance"
+    ],
+    "status": "Ended",
+    "premiered": "2017-04-26",
+    "ended": "2019-03-13",
+    "runtime": 5,
+    "rating": null,
+    "network": "V LIVE",
+    "country": "Korea, Republic of",
+    "official_site": "https://www.vlive.tv/video/28064?channelCode=ED523B",
+    "summary": "Office Watch is about what goes on in an office, showing the main characters struggling with a variety of very difficult coworkers but also captures blooming office romance.",
+    "image_url": "https://static.tvmaze.com/uploads/images/original_untouched/215/538655.jpg",
+    "tvmaze_url": "https://www.tvmaze.com/shows/44432/office-watch"
+  }
+]

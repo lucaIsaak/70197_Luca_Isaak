@@ -1,0 +1,6 @@
+.env
+__pycache__/
+.venv/
+.DS_Store
+# generated scrape output (regenerate with scraper.py)
+books100.json

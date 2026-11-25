@@ -1,0 +1,8 @@
+.DS_Store
+.env
+__pycache__/
+.venv/
+.claude/settings.local.json
+# Original standalone repos kept locally as source copies (they contain their own .git and a real .env)
+/chrome_extension/
+/bookscrape_supabase/

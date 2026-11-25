@@ -39,5 +39,5 @@ No API key is needed for TVmaze. No secrets, credentials or personal data found;
 No secrets or personal data; generated `shows*.json` ignored except the committed sample; imports match `requirements.txt`. Remaining item: issue 2.
 
 ## Remaining limitations
-- The Supabase step could not be verified (database unreachable during the audit).
+- The database was unreachable during the audit. Afterwards the Supabase project was restored and the loader was verified end to end (`--test`, `--file`, `--top`).
 - Pattern searches cannot prove the absence of sensitive data.

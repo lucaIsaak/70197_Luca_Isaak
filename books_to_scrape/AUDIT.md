@@ -38,5 +38,5 @@ The real `.env` exists only locally and is git-ignored; it was never committed (
 No secrets, credentials or personal data found; `.env`, `__pycache__` and `books100.json` are ignored; all imports are listed in `requirements.txt`. Remaining item: issue 1.
 
 ## Remaining limitations
-- The Supabase database could not be reached, so RLS policies and stored data were not inspected.
+- The database was unreachable during the audit, so RLS policies were not inspected. Afterwards the project was restored: `--test` passes and `app.py` reads the 100 stored books from Supabase.
 - Pattern searches cannot prove the absence of sensitive data.

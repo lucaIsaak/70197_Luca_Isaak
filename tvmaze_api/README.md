@@ -48,5 +48,5 @@ TODO (author).
 
 ## Limitations and assistance
 - Only show-level data is stored; episodes, cast and schedules are not fetched.
-- The Supabase step (`load_to_supabase.py`) has not been tested end to end yet; `tvmaze.py` and the JSON output were tested against the live API.
+- Tested end to end on 2026-11-25: live API fetch, `--test`, `--file shows_sample.json` (5 rows) and `--top 5` against Supabase.
 - TODO (author): list AI tools used. This project was scaffolded with Claude Code, following the structure of the Books project.

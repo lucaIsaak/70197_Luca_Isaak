@@ -29,13 +29,16 @@ Example output:
 Wrote 5 records to shows.json
 ```
 
+## Data source and license
+Show data comes from [TVmaze](https://www.tvmaze.com) via its public API and is licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). `shows_sample.json` contains TVmaze data (unchanged apart from removing HTML tags from summaries) and is shared under the same license.
+
 ## Setup
 ```bash
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 cp .env.example .env   # only needed for the Supabase step
 ```
-Run `schema.sql` once in the Supabase SQL Editor before `load_to_supabase.py`. `tvmaze.py` works without any configuration.
+Tested with Python 3.13. Run `schema.sql` in the Supabase SQL Editor (safe to re-run) before `load_to_supabase.py`. `tvmaze.py` works without any configuration.
 
 ## Screenshot
 TODO: add a screenshot of a terminal run.
@@ -45,5 +48,5 @@ TODO (author).
 
 ## Limitations and assistance
 - Only show-level data is stored; episodes, cast and schedules are not fetched.
-- The Supabase step was not verified end to end (see `REQUIREMENTS_CHECK.md` at the repo root).
+- The Supabase step (`load_to_supabase.py`) has not been tested end to end yet; `tvmaze.py` and the JSON output were tested against the live API.
 - TODO (author): list AI tools used. This project was scaffolded with Claude Code, following the structure of the Books project.

@@ -1,7 +1,7 @@
 # Momentum Dash replica: Reef
 
 ## Purpose
-Reef is a Chrome extension (Manifest V3) that replaces the new tab page with a Momentum-style dashboard (background scene, clock, greeting, quote, to-do list) and adds a focus timer. During a focus session, sites on your blocklist are blocked and a coral grows; giving up early bleaches it. Finished corals collect in a personal reef. A second part, "Shadow", shows what websites collect about you and what could be inferred from it. See `PM-doc.md` for the full feature list.
+Reef is a Chrome extension (Manifest V3) that replaces the new tab page with a Momentum-style dashboard (background scene, clock, greeting, quote, to-do list) and adds a focus timer. During a focus session, sites on your blocklist are blocked and a coral grows; giving up early bleaches it. Finished corals collect in a personal reef. A second part, "Shadow", shows what websites collect about you and what could be inferred from it. See `PM-doc.md` for the full feature spec (features and acceptance criteria).
 
 ## Data collection
 All data comes from the user's own browser: what they type (blocklist, to-dos, chosen background image) and, only after the user presses "Start recording", browsing metadata observed by the extension (site names, third-party requests, cookie names, fingerprinting calls). No external API is called. Details: `PRIVACY.md`.
@@ -17,7 +17,16 @@ Open a new tab to see the dashboard. Pick a duration and press "Start focus"; ad
 2. Click "Load unpacked" and select this `momentum_dash_replica` folder.
 3. Open a new tab.
 
-No dependencies to install. Requires Chrome 111+. `vendor/three.module.min.js` (three.js, MIT, see `vendor/LICENSE-three.txt`) is bundled for the 3D twin view.
+No dependencies to install. Requires Chrome 111+. `vendor/three.module.min.js` (three.js r160, MIT, see `vendor/LICENSE-three.txt`) is bundled for the 3D twin view.
+
+### Why the extension asks for these permissions
+| Permission | Used for |
+|---|---|
+| `storage`, `alarms`, `notifications` | Saving settings/to-dos locally, the focus timer, end-of-session notice |
+| `declarativeNetRequest` | Blocking distracting sites during focus, and the optional tracker blocking |
+| `webRequest`, `<all_urls>` host access | Observing which third parties a site contacts (Shadow), only after recording is started |
+| `cookies`, `browsingData` | Showing cookie names/lifetimes and the optional "clean up" action |
+| Gmail content script | Detecting the "Message sent" toast to tick off "Send email" to-dos (no email content is read) |
 
 ## Screenshot
 TODO: add `screenshot.png` of the new tab page.

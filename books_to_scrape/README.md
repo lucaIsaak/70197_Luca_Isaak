@@ -7,7 +7,7 @@ Scrapes book data from https://books.toscrape.com, stores it in a Supabase (Post
 `scraper.py` walks the catalogue list pages with `requests`, opens each book's detail page and parses it with BeautifulSoup (title, category, prices, stock, rating, reviews, description, image, URL). It waits `--delay` seconds (default 0.5) between pages to be polite to the site.
 
 ## Data persistence
-Records are written to a JSON file (`books.json` is a 10-book sample) and then upserted into the `books` table in Supabase (`schema.sql`). The UPC is the primary key, so re-running the loader updates rows instead of duplicating them. Row level security allows public read only; writes use the service-role key from `.env`, which is never committed.
+Records are written to a JSON file (`books.json` is a 10-book sample) and then upserted into the `books` table in Supabase (`schema.sql`). The UPC is the primary key, so re-running the loader updates rows instead of duplicating them. Row level security allows public read only. The loader writes with the service-role key; the app only needs the read-only anon key (`SUPABASE_ANON_KEY`). Both live in `.env`, which is git-ignored.
 
 ## User interaction
 Collect and store the data from the command line:
@@ -25,12 +25,13 @@ The app opens at http://localhost:8501. The sidebar filters by title, category, 
 The app reads the `books` table from Supabase when `.env` is set. If Supabase is not configured or not reachable, it falls back to the local `books100.json` (or the committed `books.json` sample) and says so at the top of the page, so the interface can be tried without a database.
 
 ## Setup
+Tested with Python 3.13.
 ```bash
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-cp .env.example .env   # fill in SUPABASE_URL and SUPABASE_SERVICE_KEY
+cp .env.example .env   # fill in SUPABASE_URL, SUPABASE_SERVICE_KEY and (optional) SUPABASE_ANON_KEY
 ```
-Run `schema.sql` once in the Supabase SQL Editor, then the commands above.
+Run `schema.sql` in the Supabase SQL Editor (safe to re-run), then the commands above. `streamlit run app.py` also works without `.env`: it then shows the local JSON data.
 
 ## Screenshot
 TODO: add a screenshot of the terminal run and/or the Supabase table.

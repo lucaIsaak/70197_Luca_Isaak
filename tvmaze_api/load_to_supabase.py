@@ -37,9 +37,11 @@ def client():
 def test_connection(sb):
     row = {"id": -1, "name": "connection test", "tvmaze_url": "http://example.com"}
     sb.table("shows").upsert(row).execute()
-    got = sb.table("shows").select("*").eq("id", -1).execute().data
-    assert got and got[0]["name"] == "connection test", "read-back failed"
-    sb.table("shows").delete().eq("id", -1).execute()
+    try:
+        got = sb.table("shows").select("*").eq("id", -1).execute().data
+        assert got and got[0]["name"] == "connection test", "read-back failed"
+    finally:  # never leave the dummy row behind
+        sb.table("shows").delete().eq("id", -1).execute()
     print("OK: wrote, read back, and deleted a test row.")
 
 

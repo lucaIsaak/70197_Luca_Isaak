@@ -25,8 +25,8 @@ Source: `individual-submission.pdf` (Submission Guidelines, 3 pages). Checked on
 | 17 | README: Limitations and assistance (AI tools, tutorials, external code) | partial | TVmaze notes Claude Code use and gaps; others are TODO. |
 | 18 | Screenshot or short demonstration per project | partial | TVmaze README has example terminal output; no image screenshots yet. |
 | 19 | "Not applicable" + reason for topics that don't apply | n/a so far | e.g. Reef's "Data collection" is filled in rather than N/A. |
-| 20 | Run the audit prompt per project, fix, repeat | missing | Must be run by you with your assistant (grading looks at your process). |
-| 21 | Sanitized `AUDIT.md` in each project | partial | Skeleton files with the required headings exist; contents TODO. |
+| 20 | Run the audit prompt per project, fix, repeat | done | Run with Claude Code on 2026-11-25 (run 1 → fixes → run 2). Re-run it yourself after you write the TODO sections; the grade looks at your process. |
+| 21 | Sanitized `AUDIT.md` in each project | done | Findings, decisions, fixes, re-audit and limitations recorded; no secrets. |
 | 22 | No secrets / private info in repo; placeholder config | done (pre-check) | `.env` not copied, `.env` git-ignored everywhere, `.env.example` uses placeholders, `.claude/settings.local.json` not copied. A regex scan for keys/Supabase URLs in the new folders found nothing. Not a substitute for the audit. |
 | 23 | Appropriate exclusions (`.gitignore`) | done | Root + per-project `.gitignore` (env, caches, venv, generated JSON). |
 | 24 | Git usage visible (process) | partial | One local commit on `submission-structure`. Graders look at Git history, so commit your own follow-up work in small steps. |

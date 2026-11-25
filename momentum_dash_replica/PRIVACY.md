@@ -61,6 +61,6 @@ The "digital twin" shows crude guesses made from simple rules, to illustrate wha
 
 ## Contact
 
-_Add your contact email or website here before publishing._
+Questions or issues: open an issue on the project's GitHub repository (https://github.com/lucaIsaak).
 
 Last updated: 1 October 2026.

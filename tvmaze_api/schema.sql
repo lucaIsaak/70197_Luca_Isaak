@@ -24,4 +24,5 @@ create index if not exists shows_rating_idx on public.shows (rating desc);
 -- Server-side script uses the service_role key (bypasses RLS). Enable RLS so the
 -- public anon key cannot write; allow public read-only access.
 alter table public.shows enable row level security;
+drop policy if exists "public read" on public.shows;
 create policy "public read" on public.shows for select using (true);

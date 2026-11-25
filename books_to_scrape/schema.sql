@@ -21,4 +21,5 @@ create index if not exists books_category_idx on public.books (category);
 -- Server-side script uses the service_role key (bypasses RLS). Enable RLS so the
 -- public anon key cannot write; allow public read-only access.
 alter table public.books enable row level security;
+drop policy if exists "public read" on public.books;
 create policy "public read" on public.books for select using (true);

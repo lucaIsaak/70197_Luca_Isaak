@@ -3,7 +3,8 @@
 Usage:
     streamlit run app.py
 
-Reads the `books` table from Supabase when .env is configured. If Supabase is
+Reads the `books` table from Supabase when .env is configured (preferably with
+the read-only SUPABASE_ANON_KEY). If Supabase is
 not configured or not reachable, it falls back to the local JSON output of
 scraper.py, so the interface can always be tried.
 """
@@ -22,10 +23,14 @@ JSON_FILES = ["books100.json", "books.json"]  # first one that exists is used
 @st.cache_data(ttl=300)
 def load_books():
     load_env()
-    if os.environ.get("SUPABASE_URL") and os.environ.get("SUPABASE_SERVICE_KEY"):
+    # Reading only needs the public anon key (RLS allows read-only access).
+    # The service-role key is used only as a fallback for local use.
+    url = os.environ.get("SUPABASE_URL")
+    key = os.environ.get("SUPABASE_ANON_KEY") or os.environ.get("SUPABASE_SERVICE_KEY")
+    if url and key:
         try:
-            from load_to_supabase import client
-            rows = client().table("books").select("*").execute().data
+            from supabase import create_client
+            rows = create_client(url, key).table("books").select("*").execute().data
             return pd.DataFrame(rows), "Supabase table `books`"
         except Exception as e:  # unreachable project, missing table, bad key ...
             error = type(e).__name__

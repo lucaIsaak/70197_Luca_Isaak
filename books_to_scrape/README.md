@@ -37,7 +37,23 @@ Run `schema.sql` in the Supabase SQL Editor (safe to re-run), then the commands 
 TODO: add a screenshot of the terminal run and/or the Supabase table.
 
 ## Learning
-TODO (author).
+**Scraping in two steps.** The list pages of books.toscrape.com only show title, price and rating, so the scraper first walks the list pages and then opens each book's detail page for the UPC, stock, category and description. I learned to read the HTML structure (table rows, breadcrumb, CSS classes such as `star-rating Three`) and turn it into clean values with BeautifulSoup and small regular expressions, for example converting "£51.77" into a number. I also added a delay between requests to be polite to the website.
+
+**Choosing a key for the database.** I used the book's UPC as the primary key and `upsert` instead of `insert`. Running the loader twice then updates the same rows instead of creating duplicates, which made it safe to re-run while I was testing.
+
+**Keys and security.** Supabase has a public "anon" key and a secret "service role" key. I learned that the service key bypasses row level security, so it must only live in `.env` (which is git-ignored) and never in the code or the repository. The table allows public read-only access, and the app reads with the read-only key when it is set. The audit before publishing pointed out that the app originally used the service key just to read data, so I changed it.
+
+**Challenge: the database disappeared.** When I came back to the project for submission, the loader failed with "nodename nor servname provided": the Supabase host no longer existed. Free Supabase projects are paused after about a week without use. After restoring it, the server first answered with error 521 while it was starting up, and then "Could not find the table": the project was back, but the database had to be set up again with `schema.sql`. This taught me to read error messages step by step (host not found → server not ready → table missing) and to make `schema.sql` safe to run more than once. It is also why the Streamlit app falls back to the local JSON file when Supabase isn't reachable, so the interface can always be tried.
 
 ## Limitations and assistance
-TODO (author): incomplete features and AI tools / tutorials used.
+**Limitations**
+- The scraper only works for books.toscrape.com and depends on its HTML structure.
+- Pages are scraped one after another (about 0.5 s per book), so all 1,000 books take roughly 10–15 minutes. There is no automatic re-scraping.
+- The app loads the whole table on each refresh, which is fine for the 1,000 books on the site but would not scale to a much larger catalogue.
+- Single user, no login. Anyone with the read-only key can view the data, which is intended.
+
+**Assistance**
+- The scraper and loader were written with **Claude Code** (Anthropic's AI coding assistant) in October 2026. I ran the scrapes, set up Supabase and checked the data.
+- For the submission, Claude Code helped with the Streamlit interface (`app.py`), the README, the fix for loading `.env` from any folder, the re-runnable `schema.sql`, and the audit in `AUDIT.md`.
+- The Learning sections in this README were drafted with Claude Code from the full context of our working session and my project history, which my professor allowed. I reviewed them.
+- Libraries: requests, BeautifulSoup, supabase-py, Streamlit, pandas. No other tutorials or external code.

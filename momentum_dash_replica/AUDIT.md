@@ -1,7 +1,7 @@
 # Audit: momentum_dash_replica (Reef)
 
 ## How the audit was run
-The audit prompt from the submission guidelines was run with Claude Code (coding assistant) from this folder on 2026-11-25, read-only: no files modified, no project code executed, nothing committed or pushed. Findings were reviewed, fixes applied, and the audit was run again the same day.
+The audit prompt from the submission guidelines was run with Claude Code (coding assistant) from this folder on 2026-11-25, read-only: no files modified, no project code executed, nothing committed or pushed. Findings were reviewed, fixes applied, and the audit was run again the same day (run 2). After the README sections were completed, a third run checked the whole repository, including its full Git history (run 3).
 
 ## What was checked
 - Tracked and untracked files (`git ls-files`, `git status`) and files ignored by `.gitignore`
@@ -37,6 +37,12 @@ No secrets, credentials, emails or local paths were found. No `.env` or `.claude
 
 ## Run 2: re-audit
 No secrets, credentials or personal data found; ignore rules correct; manifest is valid JSON. Remaining items: issue 1 (author's own sections and screenshot).
+
+## Run 3: whole-repository re-audit
+Checked the full Git history of the submission repository (not only the current files) for keys, tokens, Supabase project URLs, emails, local paths and IP addresses, and for sensitive files ever committed (`.env`, `.claude/`, `.DS_Store`, caches). Nothing was found. `.env`, caches and generated output are ignored and only exist locally.
+
+- Issue 1: Learning and Limitations/assistance sections are now written. **Still open:** screenshot.
+- No new issues.
 
 ## Remaining limitations
 - The extension was not loaded in Chrome during the audit (the prompt forbids executing project code).

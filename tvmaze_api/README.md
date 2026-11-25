@@ -73,6 +73,7 @@ TODO: add a screenshot of the app (Search and My shows).
 **Limitations**
 - Only show-level data is stored. Episode counts are fetched live; cast and schedules are not used.
 - There are no user accounts: everyone using the same Supabase project shares one list.
+- The app saves and removes shows with the service-role key from `.env`, because writing needs it. It is meant to run locally on your own computer and should not be deployed publicly in this form.
 - Streamlit reruns the script on every click, so the app reloads the saved list each time. That's fine for a personal list of a few hundred shows.
 - Tested end to end on 2026-11-25: live API fetch, `--test`, `--file shows_sample.json` (5 rows) and `--top 5` against Supabase. App tested in the browser (search, save, filter, detail view with episode count, remove) and in demo mode without Supabase.
 

@@ -1,0 +1,10 @@
+# Dark theme. Streamlit reads this file when the app is started from this folder.
+[theme]
+base = "dark"
+primaryColor = "#E23B3B"
+backgroundColor = "#141414"
+secondaryBackgroundColor = "#232323"
+textColor = "#E5E5E5"
+
+[client]
+toolbarMode = "minimal"

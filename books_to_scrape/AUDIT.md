@@ -1,7 +1,7 @@
 # Audit: books_to_scrape
 
 ## How the audit was run
-The audit prompt from the submission guidelines was run with Claude Code (coding assistant) from this folder on 2026-11-25, read-only: no files modified, no project code executed, nothing committed or pushed. Findings were reviewed, fixes applied, and the audit was run again the same day.
+The audit prompt from the submission guidelines was run with Claude Code (coding assistant) from this folder on 2026-11-25, read-only: no files modified, no project code executed, nothing committed or pushed. Findings were reviewed, fixes applied, and the audit was run again the same day (run 2). After the README sections were completed, a third run checked the whole repository, including its full Git history (run 3).
 
 ## What was checked
 - Tracked and untracked files (`git ls-files`, `git status`) and files ignored by `.gitignore`
@@ -36,6 +36,13 @@ The real `.env` exists only locally and is git-ignored; it was never committed (
 
 ## Run 2: re-audit
 No secrets, credentials or personal data found; `.env`, `__pycache__` and `books100.json` are ignored; all imports are listed in `requirements.txt`. Remaining item: issue 1.
+
+## Run 3: whole-repository re-audit
+Checked the full Git history of the submission repository (not only the current files) for keys, tokens, Supabase project URLs, emails, local paths and IP addresses, and for sensitive files ever committed (`.env`, `.claude/`, `.DS_Store`, caches). Nothing was found. `.env`, caches and generated output are ignored and only exist locally.
+
+- Issue 1: Learning and Limitations/assistance sections are now written. **Still open:** screenshot.
+- Imports still match `requirements.txt`; `.env.example` lists every variable the code uses.
+- No new issues.
 
 ## Remaining limitations
 - The database was unreachable during the audit, so RLS policies were not inspected. Afterwards the project was restored: `--test` passes and `app.py` reads the 100 stored books from Supabase.

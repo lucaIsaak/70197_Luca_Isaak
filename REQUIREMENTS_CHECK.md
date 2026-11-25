@@ -13,9 +13,9 @@ Source: `individual-submission.pdf` (Submission Guidelines, 3 pages). Checked on
 | 5 | Root `README.md` linking to all three | done | |
 | 6 | Project 1: Momentum Dash replica (browser extension) | done | Copied from `chrome_extension/` ("Reef"). Manifest valid, JS syntax checks pass. Not loaded in Chrome during this run. |
 | 7 | Project 2: Books to Scrape: collect data | done | Scraper test run (2 books) OK. |
-| 8 | Project 2: store in a database | partial | Code exists (Supabase), but the Supabase host in your `.env` does not resolve (project likely paused or deleted), so write/read was not verified. |
+| 8 | Project 2: store in a database | done | Supabase restored; `load_to_supabase.py --test` passes (write, read back, delete). The `books` table holds 100 rows, and `app.py` reads them from Supabase. |
 | 9 | Project 2: present through an interface of your choice | done | Streamlit app `books_to_scrape/app.py` (filters, metrics, table, chart, detail view). Tested in the browser with local JSON. Its Supabase-read path fell back correctly when Supabase was unreachable, but a successful Supabase read was not tested. |
-| 10 | Project 3: TVmaze API solution that connects to and uses the API | done | `tvmaze.py` tested live (search + index). Supabase loader + `--top` listing written but not verified (same DB issue; `shows` table must also be created from `schema.sql`). |
+| 10 | Project 3: TVmaze API solution that connects to and uses the API | done / partial | `tvmaze.py` tested live. Supabase loader still fails: table `public.shows` not found (as of 2026-11-25), so `tvmaze_api/schema.sql` must be run in the SQL Editor. Loader logic was verified against an in-memory stand-in. |
 | 11 | README per project: Purpose | done | All three. |
 | 12 | README: Data collection | done | All three. |
 | 13 | README: Data persistence | done | All three. |
@@ -57,7 +57,7 @@ Source: `individual-submission.pdf` (Submission Guidelines, 3 pages). Checked on
 8. Learning, AI-assistance and audit sections were left as TODOs on purpose: they must reflect your own work and process.
 
 ## Open questions for you
-1. **Supabase:** is the project paused or deleted? Restore it (or create a new one), update `.env` in both project folders, run `schema.sql` (books + shows), then `python load_to_supabase.py --test`.
+1. **Supabase:** restored, and the books part is verified. The `shows` table is still missing: run `tvmaze_api/schema.sql` in the SQL Editor, then `python load_to_supabase.py --test` in `tvmaze_api/`.
 2. **Books interface (#9):** built as a Streamlit app (follow-up request). It uses the service-role key from `.env` to read, like the loader. A read-only anon key would be cleaner for a viewer, so that's worth considering once Supabase is back. A screenshot of the app would also cover requirement #18 for this project.
 3. Do you want the original two GitHub repos (`lucaIsaak/chrome_extension`, `lucaIsaak/bookscrape_supabase`) linked from the root README too, to show their earlier commit history?
 4. Are the folder names fine, or does your course prefer something like `01_…`, `02_…`?
